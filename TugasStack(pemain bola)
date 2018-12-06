@@ -27,8 +27,8 @@ class simpul
 		
 		void Tampil_Simpul()
 		{
-			cout << "No.Punggung"		<< "  " << "Nama Pemain"		 << "   " <<"Posisi Pemain\n";
-			cout << datapemain.no_pemain << "  " << datapemain.nm_pemain << "   " << datapemain.pos_pemain<<endl;
+			
+			cout <<"    " << datapemain.no_pemain << "           " << datapemain.nm_pemain << "         " << datapemain.pos_pemain<<endl;
 		}
 };
 
@@ -160,6 +160,7 @@ int main()
 				break;
 			
 			case 'C' : case 'c':
+			cout << "No.Punggung"		<< "  " << "Nama Pemain"		 << "   " <<"Posisi Pemain\n";
 				stack.tampilTumpukan();
 				break;
 				
