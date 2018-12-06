@@ -1,7 +1,7 @@
 //ahmad romiz @2018
 #include<iostream>
-#include<conio.h>
 #include<string>
+#include<conio.h>
 using namespace std;
 
 typedef struct data{
@@ -133,7 +133,7 @@ int main()
 	do 
 	{
 		cout << "___________________________________________________";
-		cout << "\n_________Stack Menggunakan Linked List_____________";
+		cout << "\n______________Stack Linked List____________________";
 		cout << "\n__________ (Data Pemain Sepakbola)_________________";
 		cout << "\n___________________________________________________\n";
 		cout << "A. push" << endl;
@@ -146,7 +146,7 @@ int main()
 	system("cls");
 		switch(pil)
 		{
-			case A : case a:
+			case 'A' : case 'a':
 				cout << "\nMasukkan Nomer Punggung Pemain : "; cin >> no;
 				cin.ignore(256,'\n');
 				cout << "Masukkan Nama Pemain : "; getline(cin,nama);
@@ -155,15 +155,15 @@ int main()
 				system("cls");
 				break;
 				
-			case B : case b:
+			case 'B' : case 'b':
 				stack.pop();
 				break;
 			
-			case C : case c:
+			case 'C' : case 'c':
 				stack.tampilTumpukan();
 				break;
 				
-			case D : case d:
+			case 'D' : case 'd':
 				exit(0);
 				break;
 				
