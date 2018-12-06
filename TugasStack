@@ -1,0 +1,176 @@
+//ahmad romiz @2018
+#include<iostream>
+#include<conio.h>
+#include<string>
+using namespace std;
+
+typedef struct data{
+	string nm_pemain;
+	string pos_pemain;
+	int no_pemain;
+}dData;
+
+class simpul
+{
+	public :
+		dData datapemain;
+		simpul* pNext;
+		
+		
+		simpul(string nP,string pP, int np)
+		{
+			datapemain.nm_pemain = nP;
+			datapemain.pos_pemain = pP;
+			datapemain.no_pemain = np;
+			pNext = NULL;
+		}
+		
+		void Tampil_Simpul()
+		{
+			cout << "No.Punggung"		<< "  " << "Nama Pemain"		 << "   " <<"Posisi Pemain\n";
+			cout << datapemain.no_pemain << "  " << datapemain.nm_pemain << "   " << datapemain.pos_pemain<<endl;
+		}
+};
+
+class linkedlist
+{
+	private :
+		simpul* pAwal;
+	
+	public :
+		linkedlist() : pAwal(NULL)
+		{}
+		
+		~linkedlist()
+		{
+			simpul* pKini = pAwal;
+			while(pKini!=NULL)
+			{
+				simpul* pLama = pKini;
+				pKini = pKini->pNext;
+				delete pLama;
+			}
+		}
+		
+		bool apaKosong()
+		{
+			return (pAwal==NULL);
+		}
+		
+		void sisipAwal(string nP, string pP, int np)
+		{
+			simpul* pSimpulBaru = new simpul(nP,pP,np);
+			pSimpulBaru->pNext = pAwal;
+			pAwal = pSimpulBaru;
+		}
+		
+		void hapusAwal()
+		{
+			simpul* pTemp = pAwal;
+			pAwal = pAwal->pNext;
+			delete pTemp;
+		}
+		
+		void Tampil_senarai()
+		{
+			simpul* pKini = pAwal;
+			if(pKini==NULL)
+			{
+				cout << "--STACK KOSONG--";
+			}
+			while(pKini!=NULL)
+			{
+				pKini->Tampil_Simpul();
+				pKini = pKini->pNext;
+			}
+			cout << endl;
+		}
+};
+
+class stacklist
+{
+	private :
+		linkedlist* pSenarai;
+	
+	public :
+		stacklist()
+		{
+			pSenarai = new linkedlist;
+		}
+		
+		~stacklist()
+		{
+			delete pSenarai;
+		}
+		
+		void push(string nP, string pP, int np)
+		{
+			pSenarai->sisipAwal(nP,pP,np);
+		}
+		
+		void pop()
+		{
+			pSenarai->hapusAwal();	
+		}
+		
+		bool apaKosong()
+		{
+			return (pSenarai->apaKosong());
+		}
+		
+		void tampilTumpukan()
+		{
+			pSenarai->Tampil_senarai();
+		}
+};
+
+int main()
+{
+	stacklist stack;
+	char pil;
+    int no;
+	string nama, posisi;
+	do 
+	{
+		cout << "___________________________________________________";
+		cout << "\n_________Stack Menggunakan Linked List_____________";
+		cout << "\n__________ (Data Pemain Sepakbola)_________________";
+		cout << "\n___________________________________________________\n";
+		cout << "A. push" << endl;
+		cout << "B. pop" << endl;
+		cout << "C. tampilkan" << endl;
+		cout << "D. keluar" << endl << endl;
+		cout << "Masukkan Pilihan Anda : ";
+		cin >> pil;
+		cout << "_____________________________________________________" << endl;
+	system("cls");
+		switch(pil)
+		{
+			case A : case a:
+				cout << "\nMasukkan Nomer Punggung Pemain : "; cin >> no;
+				cin.ignore(256,'\n');
+				cout << "Masukkan Nama Pemain : "; getline(cin,nama);
+				cout << "Masukkan Posisi Pemain : "; getline(cin,posisi);
+				stack.push(nama,posisi,no);
+				system("cls");
+				break;
+				
+			case B : case b:
+				stack.pop();
+				break;
+			
+			case C : case c:
+				stack.tampilTumpukan();
+				break;
+				
+			case D : case d:
+				exit(0);
+				break;
+				
+			default :
+				cout << "pilihan yang anda masukkan salah!!!"<<endl;
+		}
+	} while (true);
+	getch();
+	return 0;
+}
