@@ -1,2 +1,2 @@
 # Ahmad-Romiz
-Penrapan Stack 
+Penrapan Stack data queue linkedlist
