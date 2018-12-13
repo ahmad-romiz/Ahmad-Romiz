@@ -1,0 +1,185 @@
+//ahmad romiz 5170411245
+#include<iostream>
+#include<conio.h>
+#include<string>
+using namespace std;
+
+typedef struct data{
+	string nm_pemain;
+	string pos_pemain;
+	int no_pemain;
+
+}d_Data;
+
+class simpul
+{
+	public :
+		d_Data datapemain;
+		simpul* pNext;
+		
+		
+		simpul(string nP,string pP, int np)
+		{
+			datapemain.nm_pemain = nP;
+			datapemain.pos_pemain = pP;
+			datapemain.no_pemain = np;
+			pNext = NULL;
+		}
+		
+		void tampilSimpul()
+		{
+			cout <<"  " << datapemain.no_pemain <<"    " << datapemain.nm_pemain<<"     "<< datapemain.pos_pemain<<endl;
+		}
+};
+
+class linkedlist
+{
+	private :
+		simpul* pAwal;
+		simpul* pAkhir;
+	
+	public :
+		linkedlist() : pAwal(NULL)
+		{}
+		
+		~linkedlist()
+		{
+			simpul* pKini = pAwal;
+			while(pKini!=NULL)
+			{
+				simpul* pLama = pKini;
+				pKini = pKini->pNext;
+				delete pLama;
+			}
+		}
+		
+		bool apaKosong()
+		{
+			return (pAwal==NULL);
+		}
+		
+		void sisipAkhir(string nP, string pP, int np)
+		{
+			simpul* pNewSimpul = new simpul(nP,pP,np);
+			if(apaKosong())
+			{
+				pAwal = pNewSimpul;
+			}
+			else
+			{
+				pAkhir->pNext=pNewSimpul;
+			}
+			pAkhir=pNewSimpul;
+		}
+		
+		void hapusAwal()
+		{
+			simpul* pTemp = pAwal;
+			pAwal = pAwal->pNext;
+			delete pTemp;
+		}
+		
+		void tampilSenarai()
+		{
+			simpul* pKini = pAwal;
+			if(pKini==NULL)
+			{
+				cout << "--STACK KOSONG--";
+			}
+			while(pKini!=NULL)
+			{
+				pKini->tampilSimpul();
+				pKini = pKini->pNext;
+			}
+			cout << endl;
+		}
+};
+
+class queuelist
+{
+	private :
+		linkedlist* pSenarai;
+	
+	public :
+		queuelist()
+		{
+			pSenarai = new linkedlist;
+		}
+		
+		~queuelist()
+		{
+			delete pSenarai;
+		}
+		
+		void push(string nP, string pP, int np)
+		{
+			pSenarai->sisipAkhir(nP,pP,np);
+		}
+		
+		void pop()
+		{
+			pSenarai->hapusAwal();	
+		}
+		
+		bool apaKosong()
+		{
+			return (pSenarai->apaKosong());
+		}
+		
+		void tampilTumpukan()
+		{
+			pSenarai->tampilSenarai();
+		}
+};
+
+int main()
+{
+	queuelist queue;
+	int pilih, no;
+	string nama, posisi;
+	do 
+	{
+		cout << "\n________________________________________________________" << endl;
+		cout << "Queue Menggunakan Linked List (Data Pemain Sepakbola)" << endl;
+		cout << "========================================================" << endl;
+		cout << "1. Enqueue" << endl;
+		cout << "2. Dequeue" << endl;
+		cout << "3. Tampillan Data" << endl;
+		cout << "4. Keluar" << endl << endl;
+		cout << "Masukkan Pilihan Anda : ";
+		cin >> pilih;
+		cout << "________________________________________________________" << endl;
+	
+		switch(pilih)
+		{
+			case 1 :
+				cout << "\nMasukkan: \nNomer Punggung Pemain : "; cin >> no;
+				cin.ignore(256,'\n');
+				cout << "Nama Pemain : "; getline(cin,nama);
+				cout << "Posisi Pemain : "; getline(cin,posisi);
+				queue.push(nama,posisi,no);
+				system("cls");
+				break;
+				
+			case 2 :
+				queue.pop();
+				break;
+			
+			case 3 :
+				//datapemain.no_pemain << datapemain.nm_pemain<< datapemain.pos_pemain
+				cout<<"Data Pemain\n";
+				cout<<"  NO  |   Nama   |   Posisi   |\n";
+				queue.tampilTumpukan();
+				break;
+				
+			case 4 :
+				exit(0);
+				break;
+				
+			default :
+				cout << "__pilihan anda masukkan salah__"<<endl;
+		}
+	} while (true);
+	getch();
+	return 0;
+}
